@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<DA>
+    <!-- 服务器地址 -->
+    <SERVER>http://localhost:8080</SERVER>
+
+    <!-- 数据采集点编号 -->
+    <NO>TEST</NO>
+    <!-- 更新文件名称 -->
+    <UPDATE_FILE_NAME>1.0.0.1</UPDATE_FILE_NAME>
+
+
+</DA>
