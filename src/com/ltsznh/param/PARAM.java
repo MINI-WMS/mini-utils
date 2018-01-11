@@ -29,10 +29,6 @@ public class PARAM {
 
 	//	private static String COOKIES = null;// WEB端SESSION值
 	private static String COOKIES = "JSESSIONID=3ba6e5f0-140c-4da9-ab8d-46877dc74306;rememberMe=deleteMe;";// WEB端SESSION值
-
-
-
-
 	/**
 	 * 设置Cookies
 	 *
