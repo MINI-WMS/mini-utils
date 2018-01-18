@@ -1,5 +1,8 @@
-package com.ltsznh.util;
+package com.ltsznh.util.template;
 
+import com.ltsznh.util.syncData;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.poi.hssf.converter.ExcelToHtmlConverter;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.w3c.dom.Document;
@@ -16,6 +19,8 @@ import java.io.*;
  *
  */
 public class ExcelToHtml {
+	private static Logger logger = LogManager.getLogger(ExcelToHtml.class);
+
 	public static void main(String[] args) {
 		new ExcelToHtml()
 				.getHtml("war\\WEB-INF\\template\\excel\\btkrqrjbb.xls");
@@ -34,16 +39,22 @@ public class ExcelToHtml {
 		FileInputStream fis = null;
 		try {
 			fis = new FileInputStream(file);
+			if (fis == null) {
+				return "";
+			} else {
+				return getHtml(fis);
+			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e);
+		}finally {
+//			try {
+//				fis.close();
+//			} catch (IOException e) {
+//				logger.error(e);
+//			}
 		}
-		if (fis == null) {
-			return "";
-		} else {
-			return getHtml(fis);
-		}
-
+		return "";
 	}
 
 	public String getHtml(FileInputStream fis) {
@@ -55,10 +66,9 @@ public class ExcelToHtml {
 			fis.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e);
 			return "";
 		}
-		System.out.println("test");
 		return getHtml(excelBook);
 	}
 
@@ -70,8 +80,8 @@ public class ExcelToHtml {
 					DocumentBuilderFactory.newInstance().newDocumentBuilder()
 							.newDocument());
 			// 设置输出格式
-			excelToHtmlConverter.setOutputColumnHeaders(false);// 列名
-			excelToHtmlConverter.setOutputRowNumbers(false);// 行号
+			excelToHtmlConverter.setOutputColumnHeaders(false);// 隐藏列名
+			excelToHtmlConverter.setOutputRowNumbers(false);// 隐藏行号
 			excelToHtmlConverter.setOutputLeadingSpacesAsNonBreaking(true);
 			// 处理excel表格
 			excelToHtmlConverter.processWorkbook(excelBook);
